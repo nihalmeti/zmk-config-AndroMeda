@@ -1,0 +1,75 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+
+/ {
+    chosen {
+        zmk,kscan = &default_kscan;
+        zmk,matrix_transform = &default_transform;
+        //zephyr,display = &nice_view;
+    };
+
+    default_kscan: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        label = "default_kscan";
+        diode-direction = "col2row";
+
+        row-gpios =  <&blackpill 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 18 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+                     
+
+        col-gpios = <&blackpill 25 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 26 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 27 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 28 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 29 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 30 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 31 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 38 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 39 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 40 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 41 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 42 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 43 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 45 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 46 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 3 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 4 GPIO_ACTIVE_HIGH>;
+
+    };
+
+    default_transform: matrix_transform {
+        compatible = "zmk,matrix-transform";
+        rows = <6>;
+        columns = <17>;
+
+        map = <
+            
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11) RC(0,12) RC(0,13)     RC(0,14) RC(0,15) RC(0,16) /* Row 0: Escape, Function keys, and Print Screen cluster */
+            
+            RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10) RC(1,11) RC(1,12) RC(1,13)     RC(1,14) RC(1,15) RC(1,16) /* Row 1: Numeric keys and Backspace */
+            RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(2,11) RC(2,12) RC(2,13)     RC(2,14) RC(2,15) RC(2,16) /* Row 2: Tab and QWERTY row */
+            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10) RC(3,11) RC(3,12)                                RC(3,16) /* Row 3: Caps Lock and ASDF row */
+            RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7) RC(4,8) RC(4,9) RC(4,10) RC(4,11)                                 RC(4,15)         /* Row 4: Shift and ZXCV row */
+            RC(5,0) RC(5,1) RC(5,2)                 RC(5,5)                         RC(5,9) RC(5,10) RC(5,11)                       RC(5,14) RC(5,15) RC(5,16) /* Row 5: Ctrl, Alt, Space, and Arrow keys */
+        >;
+
+    };
+        
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&encoder_1>;
+        triggers-per-rotation = <20>;
+    };
+
+    encoder_1: encoder {
+        compatible = "alps,ec11";
+        a-gpios = <&blackpill 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&blackpill 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        steps = <80>;
+        status = "okay";
+    };
+    
+};

@@ -1,0 +1,6 @@
+if SHIELD_ANDROMEDA
+
+config ZMK_KEYBOARD_NAME
+    default "AndroMeda"
+
+endif 
