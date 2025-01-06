@@ -20,5 +20,5 @@
 ---
 include:
   - board: pillbug
-    shield: AndroMeda #nice_view_animations
+    shield: AndroMeda nice_view_gem
     
