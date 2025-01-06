@@ -11,7 +11,7 @@ manifest:
       remote: zmkfirmware
       revision: main
       import: app/west.yml 
-    - name: AndroMeda-Animations #new entry
+    - name: Animations #new entry
       remote: nihalmeti #new entry
       revision: main #new entry
   self:
