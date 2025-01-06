@@ -11,7 +11,7 @@ manifest:
       remote: zmkfirmware
       revision: main
       import: app/west.yml 
-    - name: Animations #new entry
+    - name: animations #new entry
       remote: nihalmeti #new entry
       revision: main #new entry
   self:
