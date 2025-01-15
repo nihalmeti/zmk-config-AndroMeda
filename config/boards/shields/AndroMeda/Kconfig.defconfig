@@ -2,7 +2,9 @@ if SHIELD_ANDROMEDA
 
 config ZMK_KEYBOARD_NAME
     default "AndroMeda"
-
+    
+config LED
+    default y
 
 config LV_Z_VDB_SIZE
     default 100

@@ -73,15 +73,11 @@
     };
 
     aliases {
-        indicator-led = &led0;
+        indicator-led = &blue_led;
     };
 
     leds {
-        compatible = "gpio-leds";
         status = "okay";
-        led0: led_0 {
-            gpios = <&blackpill 2 GPIO_ACTIVE_HIGH>;  // White LED caps lock indicator
-        };
     };
 };
 
