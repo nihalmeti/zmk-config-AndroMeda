@@ -71,7 +71,23 @@
         steps = <80>;
         status = "okay";
     };
+
+    aliases {
+        indicator-led = &led0;
+    };
+
+    leds {
+        compatible = "gpio-leds";
+        status = "okay";
+        led0: led_0 {
+            gpios = <&blackpill 2 GPIO_ACTIVE_HIGH>;  // White LED caps lock indicator
+        };
+    };
 };
+
+
+
+
 
 &pinctrl {  
     spi0_default: spi0_default {
