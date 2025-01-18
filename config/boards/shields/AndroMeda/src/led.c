@@ -7,13 +7,10 @@
 
 #include <zmk/ble.h>
 #include <zmk/endpoints.h>
-#include <zmk/events/ble_active_profile_changed.h>
-#include <zmk/split/bluetooth/peripheral.h>
-#include <zmk/events/split_peripheral_status_changed.h>
-#include <zmk/events/battery_state_changed.h>
 
-#include <zmk/led_indicators.h>
-#include <zmk/events/led_indicator_changed.h>
+
+#include <zmk/hid_indicators.h>
+#include <zmk/events/hid_indicator_changed.h>
 
 #include <zephyr/logging/log.h>
 
