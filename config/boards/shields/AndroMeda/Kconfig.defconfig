@@ -6,10 +6,6 @@ config ZMK_KEYBOARD_NAME
 config LED
     default y
 
-config LED_INDICATOR_INTERVAL_MS
-    int "Minimum wait duration between two blinks in ms"
-    default 150
-
 config LV_Z_VDB_SIZE
     default 100
 
