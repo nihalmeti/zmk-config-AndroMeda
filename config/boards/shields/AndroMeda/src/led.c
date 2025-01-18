@@ -40,13 +40,13 @@ static const uint8_t led_idx = DT_NODE_CHILD_IDX(DT_ALIAS(indicator_led));
 
 static bool initialized = false;
 
-struct blink_item {
-    uint16_t duration_ms;
-    uint16_t interval_ms;
-    uint8_t count;
-};
+// struct blink_item {
+//     uint16_t duration_ms;
+//     uint16_t interval_ms;
+//     uint8_t count;
+// };
 
-K_MSGQ_DEFINE(led_msgq, sizeof(struct blink_item), 16, 1);
+// K_MSGQ_DEFINE(led_msgq, sizeof(struct blink_item), 16, 1);
 
 // #if IS_ENABLED(CONFIG_ZMK_BLE)
 // static void output_blink(void) {
@@ -116,69 +116,96 @@ K_MSGQ_DEFINE(led_msgq, sizeof(struct blink_item), 16, 1);
 // #endif // IS_ENABLED(CONFIG_ZMK_BATTERY_REPORTING)
 
 #if IS_ENABLED(CONFIG_ZMK_HID_INDICATORS)
-static int led_hid_indicator_listener_cb(const zmk_event_t *eh) {
-    if (!initialized) {
-        return 0;
-    }
 
-    zmk_hid_indicators_t indicators = as_zmk_hid_indicators_changed(eh)->indicators;
+// run led_battery_listener_cb on battery state change event
 
-    if (indicators & HID_USAGE_LED_CAPS_LOCK) {
-        LOG_INF("Caps ON");
+static int led_capslock_listener_cb(const zmk_event_t *eh) {
+    
 
-        struct blink_item bl = {.duration_ms = CONFIG_LED_INDICATOR_LONG_ON_MS, .count = 1};
-        k_msgq_put(&led_msgq, &bl, K_NO_WAIT);
-        struct blink_item bs = {.duration_ms = CONFIG_LED_INDICATOR_SHORT_ON_MS, .count = 5};
-        k_msgq_put(&led_msgq, &bs, K_NO_WAIT);
-    } else {
-        LOG_INF("Caps OFF");
+    zmk_led_indicators_flags_t flags = zmk_led_indicators_get_current_flags();
 
-        struct blink_item bl = {.duration_ms = CONFIG_LED_INDICATOR_LONG_ON_MS, .count = 1};
-        k_msgq_put(&led_msgq, &bl, K_NO_WAIT);
-        struct blink_item bs = {.duration_ms = CONFIG_LED_INDICATOR_SHORT_ON_MS, .count = 1};
-        k_msgq_put(&led_msgq, &bs, K_NO_WAIT);
-    }
-    return 0;
-}
-
-ZMK_LISTENER(led_hid_indicator_listener, led_hid_indicator_listener_cb);
-ZMK_SUBSCRIPTION(led_hid_indicator_listener, zmk_hid_indicators_changed);
-#endif // IS_ENABLED(CONFIG_ZMK_HID_INDICATORS)
-
-extern void led_process_thread(void *d0, void *d1, void *d2) {
-    ARG_UNUSED(d0);
-    ARG_UNUSED(d1);
-    ARG_UNUSED(d2);
-
-    while (true) {
-        struct blink_item blink;
-        k_msgq_get(&led_msgq, &blink, K_FOREVER);
-        LOG_DBG("Got a blink item from msgq, duration %d", blink.duration_ms);
-
-        for (int i = 0; i < blink.count; i++) {
-            led_on(led_dev, led_idx);
-
-            k_sleep(K_MSEC(blink.duration_ms));
-
-            led_off(led_dev, led_idx);
-
-            if (blink.interval_ms > 0) {
-                k_sleep(K_MSEC(blink.interval_ms));
-            } else {
-                k_sleep(K_MSEC(CONFIG_LED_INDICATOR_INTERVAL_MS));
+    if (flags & ZMK_LED_INDICATORS_CAPSLOCK_BIT) {
+        // turn appropriate LEDs on
+        for (uint8_t pos = 0; pos < 3; pos++) {
+            if (BIT(pos) & capslock_color) {
+                led_on(led_dev, rgb_idx[pos]);
             }
         }
+    } else {
+        for (uint8_t pos = 0; pos < 3; pos++) {
+          if (BIT(pos) & capslock_color) {
+            led_off(led_dev, rgb_idx[pos]);
+          }
+        }
     }
+
+    return 0;
 }
+ZMK_LISTENER(led_indicators_listener, led_capslock_listener_cb);
+ZMK_SUBSCRIPTION(led_indicators_listener, zmk_led_indicators_changed);
+// static int led_hid_indicator_listener_cb(const zmk_event_t *eh) {
+//     if (!initialized) {
+//         return 0;
+//     }
 
-// define led_process_thread with stack size 1024, start running it 100 ms after boot
-K_THREAD_DEFINE(led_process_tid, 1024, led_process_thread, NULL, NULL, NULL,
-                K_LOWEST_APPLICATION_THREAD_PRIO, 0, 100);
+//     zmk_hid_indicators_t indicators = as_zmk_hid_indicators_changed(eh)->indicators;
 
-extern void led_init_thread(void *d0, void *d1, void *d2) {
-    ARG_UNUSED(d0);
-    ARG_UNUSED(d1);
-    ARG_UNUSED(d2);
+//     if (indicators & HID_USAGE_LED_CAPS_LOCK) {
+//         LOG_INF("Caps ON");
+
+//         struct blink_item bl = {.duration_ms = CONFIG_LED_INDICATOR_LONG_ON_MS, .count = 1};
+//         k_msgq_put(&led_msgq, &bl, K_NO_WAIT);
+//         struct blink_item bs = {.duration_ms = CONFIG_LED_INDICATOR_SHORT_ON_MS, .count = 5};
+//         k_msgq_put(&led_msgq, &bs, K_NO_WAIT);
+//     } else {
+//         LOG_INF("Caps OFF");
+
+//         struct blink_item bl = {.duration_ms = CONFIG_LED_INDICATOR_LONG_ON_MS, .count = 1};
+//         k_msgq_put(&led_msgq, &bl, K_NO_WAIT);
+//         struct blink_item bs = {.duration_ms = CONFIG_LED_INDICATOR_SHORT_ON_MS, .count = 1};
+//         k_msgq_put(&led_msgq, &bs, K_NO_WAIT);
+//     }
+//     return 0;
+// }
+
+// ZMK_LISTENER(led_hid_indicator_listener, led_hid_indicator_listener_cb);
+// ZMK_SUBSCRIPTION(led_hid_indicator_listener, zmk_hid_indicators_changed);
+#endif // IS_ENABLED(CONFIG_ZMK_HID_INDICATORS)
+
+// extern void led_process_thread(void *d0, void *d1, void *d2) {
+//     ARG_UNUSED(d0);
+//     ARG_UNUSED(d1);
+//     ARG_UNUSED(d2);
+
+//     while (true) {
+//         struct blink_item blink;
+//         k_msgq_get(&led_msgq, &blink, K_FOREVER);
+//         LOG_DBG("Got a blink item from msgq, duration %d", blink.duration_ms);
+
+//         for (int i = 0; i < blink.count; i++) {
+//             led_on(led_dev, led_idx);
+
+//             k_sleep(K_MSEC(blink.duration_ms));
+
+//             led_off(led_dev, led_idx);
+
+//             if (blink.interval_ms > 0) {
+//                 k_sleep(K_MSEC(blink.interval_ms));
+//             } else {
+//                 k_sleep(K_MSEC(CONFIG_LED_INDICATOR_INTERVAL_MS));
+//             }
+//         }
+//     }
+// }
+
+// // define led_process_thread with stack size 1024, start running it 100 ms after boot
+// K_THREAD_DEFINE(led_process_tid, 1024, led_process_thread, NULL, NULL, NULL,
+//                 K_LOWEST_APPLICATION_THREAD_PRIO, 0, 100);
+
+// extern void led_init_thread(void *d0, void *d1, void *d2) {
+//     ARG_UNUSED(d0);
+//     ARG_UNUSED(d1);
+//     ARG_UNUSED(d2);
 
 // #if IS_ENABLED(CONFIG_ZMK_BATTERY_REPORTING)
 //     LOG_INF("Indicating initial battery status");
@@ -210,9 +237,11 @@ extern void led_init_thread(void *d0, void *d1, void *d2) {
 //     output_blink();
 // #endif // IS_ENABLED(CONFIG_ZMK_BLE)
 
-    initialized = true;
-    LOG_INF("Finished initializing LED widget");
-}
+//     initialized = true;
+//     LOG_INF("Finished initializing LED widget");
+// }
 
-K_THREAD_DEFINE(led_init_tid, 1024, led_init_thread, NULL, NULL, NULL,
-                K_LOWEST_APPLICATION_THREAD_PRIO, 0, 200);
+// K_THREAD_DEFINE(led_init_tid, 1024, led_init_thread, NULL, NULL, NULL,
+//                 K_LOWEST_APPLICATION_THREAD_PRIO, 0, 200);
+
+
