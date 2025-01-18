@@ -10,7 +10,7 @@
 
 
 #include <zmk/hid_indicators.h>
-#include <zmk/events/hid_indicator_changed.h>
+#include <zmk/events/hid_indicators_changed.h>
 
 #include <zephyr/logging/log.h>
 
