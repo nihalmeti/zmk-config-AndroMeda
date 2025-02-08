@@ -57,34 +57,6 @@
         >;
 
     };
-    /*
-    sensors: sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&encoder_1>;
-        triggers-per-rotation = <20>;
-    };
-
-    encoder_1: encoder {
-        compatible = "alps,ec11";
-        a-gpios = <&blackpill 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&blackpill 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <80>;
-        status = "okay";
-    };
-
-    aliases {
-        led-main = &led0;
-    };
-
-    leds {
-        compatible = "gpio-leds";
-        status = "okay";
-        led0: led_0 {
-            gpios = <&blackpill 2 GPIO_ACTIVE_HIGH>;  // White LED caps lock indicator
-        };
-        
-    }; 
-    */
 };
 
 
