@@ -25,8 +25,6 @@
                     <&blackpill 27 GPIO_ACTIVE_HIGH>,
                     <&blackpill 28 GPIO_ACTIVE_HIGH>,
                     <&blackpill 29 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 30 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 31 GPIO_ACTIVE_HIGH>,
                     <&blackpill 38 GPIO_ACTIVE_HIGH>,
                     <&blackpill 39 GPIO_ACTIVE_HIGH>,
                     <&blackpill 40 GPIO_ACTIVE_HIGH>,
@@ -36,7 +34,9 @@
                     <&blackpill 45 GPIO_ACTIVE_HIGH>,
                     <&blackpill 46 GPIO_ACTIVE_HIGH>,
                     <&blackpill 3 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 4 GPIO_ACTIVE_HIGH>;
+                    <&blackpill 4 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 10 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 11 GPIO_ACTIVE_HIGH>;
 
     };
 
@@ -57,7 +57,7 @@
         >;
 
     };
-        
+    /*
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&encoder_1>;
@@ -82,7 +82,9 @@
         led0: led_0 {
             gpios = <&blackpill 2 GPIO_ACTIVE_HIGH>;  // White LED caps lock indicator
         };
-    };
+        
+    }; 
+    */
 };
 
 
