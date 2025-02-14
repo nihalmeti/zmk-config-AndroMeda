@@ -4,6 +4,8 @@ config ZMK_KEYBOARD_NAME
     default "AndroMeda"
     
 
+if ZMK_DISPLAY
+
 # Add these lines for Bongo Cat
 config LV_USE_ANIMATION
     bool
@@ -38,3 +40,5 @@ config LV_USE_LABEL
 endif # LVGL
 
 endif # SHIELD_RADIANCE
+
+endif 
