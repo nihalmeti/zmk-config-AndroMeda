@@ -4,6 +4,13 @@ config ZMK_KEYBOARD_NAME
     default "AndroMeda"
     
 
+config LED
+    default y
+
+config LED_LOCK_STATUS
+    bool "Enable LED lock indicators, such as Caps lock, Num Lock ..."
+    default n
+    
 config LV_Z_VDB_SIZE
     default 100
 
