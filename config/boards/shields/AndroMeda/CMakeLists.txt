@@ -1,1 +1,1 @@
-target_sources(app PRIVATE src/led.c)
+target_sources(app PRIVATE src/leds.c)
