@@ -15,7 +15,7 @@
       compatible = "gpio-leds";
       status = "okay";
       led_0: led_0 {
-        gpios = <&blackpill 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        gpios = <&blackpill 2 GPIO_ACTIVE_HIGH>;
       };
     };
 
