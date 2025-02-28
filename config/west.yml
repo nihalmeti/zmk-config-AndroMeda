@@ -7,12 +7,16 @@ manifest:
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
+    # - name: zmk
+    #   remote: zmkfirmware
+    #   revision: main
+    #   import: app/west.yml 
+    # - name: nice-view-gem #new entry
+    #   remote: nihalmeti #new entry
+    #   revision: main #new entry
     - name: zmk
-      remote: zmkfirmware
-      revision: main
-      import: app/west.yml 
-    - name: nice-view-gem #new entry
-      remote: nihalmeti #new entry
-      revision: main #new entry
+      remote: nihalmeti
+      revision: bongo-cat-dedicated-work-queue 
+      import: app/west.yml
   self:
     path: config
