@@ -8,7 +8,7 @@ config LED
     default y
 
 config LED_LOCK_STATUS
-    bool "Enable LED lock indicators, such as Caps lock, Num Lock ..."
+    bool "Enable LED lock indicators, such as Caps lock, Num Lock ...."
     default n
     
 config LV_Z_VDB_SIZE
