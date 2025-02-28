@@ -23,9 +23,9 @@ manifest:
     - name: nihalmeti
       url-base: https://github.com/nihalmeti
   projects:
-    - name: bongo-cat
+    - name: zmk
       remote: nihalmeti
-      revision: bongo-cat-dedicated-work-queue
+      revision: main
       import: app/west.yml
   self:
     path: config
