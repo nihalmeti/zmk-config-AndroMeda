@@ -24,31 +24,31 @@
         label = "default_kscan";
         diode-direction = "col2row";
 
-        row-gpios =  <&blackpill 25 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                     <&blackpill 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                     <&blackpill 27 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+        row-gpios =  <&blackpill 38 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
                      <&blackpill 28 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                     <&blackpill 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 41 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                     <&blackpill 43 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
                      <&blackpill 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
                      
 
-        col-gpios = <&blackpill 21 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 19 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 18 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 16 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 14 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 12 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 11 GPIO_ACTIVE_HIGH>,
+        col-gpios = <&blackpill 4 GPIO_ACTIVE_HIGH>,
                     <&blackpill 10 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 29 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 38 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 11 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 12 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 14 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 16 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 18 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 19 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 21 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 46 GPIO_ACTIVE_HIGH>,
                     <&blackpill 39 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 40 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 41 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 42 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 43 GPIO_ACTIVE_HIGH>,
                     <&blackpill 45 GPIO_ACTIVE_HIGH>,
-                    <&blackpill 46 GPIO_ACTIVE_HIGH>;
+                    <&blackpill 40 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 42 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 25 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 26 GPIO_ACTIVE_HIGH>,
+                    <&blackpill 27 GPIO_ACTIVE_HIGH>;
 
     };
 
